@@ -67,7 +67,7 @@ public:
        //测试是否存在第二步提到的小球半径和速度选择不合适的问题
 		if(m_x < .0f || m_x > SCREEN_WIDTH || m_y < .0f || m_y > SCREEN_HEIGHT)
 		{
-			SetWindowTextA(getHWnd(), "检测到某些点出界了!!");
+			setcaption("检测到某些点出界了!!");
 		}
 
 #endif
@@ -235,22 +235,27 @@ public:
 
 		if(mousemsg())
 		{
-			MOUSEMSG msg;
+			mouse_msg msg;
 			do
-			msg = GetMouseMsg();
-			while(msg.uMsg == WM_MOUSEMOVE && mousemsg());
-			if(msg.uMsg == WM_LBUTTONDOWN)
+			msg = getmouse();
+			while(msg.is_move() && mousemsg());
+
+			if(msg.is_left())
 			{
-				s_x = msg.x;
-				s_y = msg.y;
-				isLbuttonDown = true;
-			}
-			if(msg.uMsg == WM_LBUTTONUP)
-			{
-				m_vec.push_back(Line(s_x, s_y, msg.x, msg.y));
-				isLbuttonDown = false;
+                if(msg.is_down())
+                {
+				    s_x = msg.x;
+				    s_y = msg.y;
+				    isLbuttonDown = true;
+                }
+                else if(msg.is_up())
+                {
+                    m_vec.push_back(Line(s_x, s_y, msg.x, msg.y));
+                    isLbuttonDown = false;
+                }
 			}
 		}
+
 		if(isLbuttonDown)
 		{
 			int x, y;
@@ -298,7 +303,7 @@ int main()
 
 	Scene scene;
 	scene.init();
-	for( ; ; )
+	for( ; is_run(); )
 	{
 		scene.update();
 		scene.show();
