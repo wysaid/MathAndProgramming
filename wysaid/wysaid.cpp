@@ -296,7 +296,7 @@ private:
 int main()
 {
 	initgraph(SCREEN_WIDTH, SCREEN_HEIGHT, INIT_RENDERMANUAL);
-	SetWindowTextA(getHWnd(), "Straight line detect V1.0——wysaid");
+	setcaption("Straight line detect V1.0——wysaid");
 	setbkmode(TRANSPARENT);
 	setfont(20, 10, "黑体");
 	randomize();
