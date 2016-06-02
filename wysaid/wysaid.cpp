@@ -1,4 +1,4 @@
-﻿#include "graphics.h"
+﻿#include <graphics.h>
 #include <vector>
 #include <cstdlib>
 #include <cmath>
